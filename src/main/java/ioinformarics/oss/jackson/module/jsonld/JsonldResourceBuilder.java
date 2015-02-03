@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldLink;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldType;
 
@@ -74,6 +75,16 @@ public class JsonldResourceBuilder<T> {
                 generatedContext.set(field.getName(), TextNode.valueOf(jsonldProperty.value()));
             }
         });
+        //add links
+        JsonldLink[] links = objType.getAnnotationsByType(JsonldLink.class);
+        if(links != null){
+            for(int i=0; i < links.length; i++){
+                ObjectNode linkNode = JsonNodeFactory.withExactBigDecimals(true).objectNode();
+                linkNode.set("@id", new TextNode(links[i].rel()));
+                linkNode.set("@type", new TextNode("@id"));
+                generatedContext.set(links[i].name(), linkNode);
+            }
+        }
         return generatedContext;
     }
 

@@ -7,7 +7,7 @@ import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */
-public class HydraCollection extends JsonldResource {
+public class HydraCollection extends BeanJsonldResource {
 
     HydraCollection(Iterable<JsonldResource> graph, JsonNode context, String type, String id) {
         super(new CollectionContainer(graph), context, type, id);

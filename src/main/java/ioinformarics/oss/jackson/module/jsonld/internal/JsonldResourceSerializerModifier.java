@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.databind.ser.impl.ObjectIdWriter;
 import com.fasterxml.jackson.databind.ser.std.BeanSerializerBase;
 import com.fasterxml.jackson.databind.ser.std.StdDelegatingSerializer;
+import ioinformarics.oss.jackson.module.jsonld.BeanJsonldResource;
 import ioinformarics.oss.jackson.module.jsonld.JsonldResource;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldLink;
 
@@ -27,12 +28,12 @@ public class JsonldResourceSerializerModifier extends BeanSerializerModifier {
 
     @Override
     public JsonSerializer<?> modifySerializer(SerializationConfig config, BeanDescription beanDesc, JsonSerializer<?> serializer) {
-        if(JsonldResource.class.isAssignableFrom(beanDesc.getBeanClass()) && serializer instanceof BeanSerializerBase){
+        if(BeanJsonldResource.class.isAssignableFrom(beanDesc.getBeanClass()) && serializer instanceof BeanSerializerBase){
             return new BeanSerializer((BeanSerializerBase) serializer) {
                 @Override
                 protected void serializeFields(Object bean, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
                     super.serializeFields(bean, jgen, provider);
-                    getLinks((JsonldResource)bean).ifPresent(linksMap ->
+                    getLinks((BeanJsonldResource)bean).ifPresent(linksMap ->
                             linksMap.forEach((key, value) -> {
                                 try {
                                     jgen.writeFieldName(key);
@@ -46,7 +47,7 @@ public class JsonldResourceSerializerModifier extends BeanSerializerModifier {
         return serializer;
     }
 
-    protected Optional<Map<String,String>> getLinks(JsonldResource resource) {
+    protected Optional<Map<String,String>> getLinks(BeanJsonldResource resource) {
         Map<String,String> linksNodes = null;
         Class<?> beanType = resource.scopedObj.getClass();
         JsonldLink[] links = beanType.getAnnotationsByType(JsonldLink.class);

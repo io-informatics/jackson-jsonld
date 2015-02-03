@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */
-public class JsonldGraph extends JsonldResource {
+public class JsonldGraph extends BeanJsonldResource {
 
 
     JsonldGraph(Iterable<JsonldResource> graph, JsonNode context, String type, String id) {

@@ -63,7 +63,13 @@ public class JsonldGraphBuilder<T> {
 
     protected Iterable<JsonldResource> buildElements(Iterable<T> elements) {
         ArrayList<JsonldResource> list = new ArrayList<>();
-        elements.forEach(e -> list.add(new JsonldResource(e,null, resourceBuilder.getType(e),  resourceBuilder.getId(e))));
+        elements.forEach(e -> {
+            JsonldResourceBuilder builder = JsonldResource.Builder.create();
+            builder.type(resourceBuilder.getType(e));
+            builder.id(resourceBuilder.getId(e));
+            builder.context(null);
+            list.add(builder.build(e));
+        });
         return list;
     }
 

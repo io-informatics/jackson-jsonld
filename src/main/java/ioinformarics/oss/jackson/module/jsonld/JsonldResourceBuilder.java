@@ -9,6 +9,7 @@ import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldType;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -46,7 +47,13 @@ public class JsonldResourceBuilder<T> {
     }
 
     public JsonldResource build(T scopedObj) {
-        return new JsonldResource(scopedObj, getContext(scopedObj), getType(scopedObj), getId(scopedObj));
+        if(scopedObj == null){
+            return null;
+        }
+        if(Map.class.isAssignableFrom(scopedObj.getClass())){
+            return new MapJsonldResource((Map)scopedObj, getContext(scopedObj), getType(scopedObj), getId(scopedObj));
+        }
+        return new BeanJsonldResource(scopedObj, getContext(scopedObj), getType(scopedObj), getId(scopedObj));
     }
 
     protected JsonNode getContext(T scopedObj) {

@@ -1,9 +1,13 @@
 package ioinformarics.oss.jackson.module.jsonld;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -47,14 +51,9 @@ public class JsonldGraphBuilder<T> {
     }
 
     public JsonldResource build(Iterable<T> elements) {
-        return new JsonldGraph(buildElements(elements), resourceBuilder.buildMultiContext(context, buildContext(elements)), graphType, graphId);
-    }
+        Optional<JsonNode> generatedContext = JsonldContextFactory.multiContext(Optional.ofNullable(context), JsonldContextFactory.fromAnnotations(elements));
+        return new JsonldGraph(buildElements(elements), generatedContext.orElse(null), graphType, graphId);
 
-    protected ObjectNode buildContext(Iterable<T> elements) {
-        //WARN: Not a deep merge
-        ObjectNode mergedContext = JsonNodeFactory.withExactBigDecimals(true).objectNode();
-        elements.forEach(e -> mergedContext.setAll(resourceBuilder.generateContext(e.getClass())));
-        return mergedContext;
     }
 
     protected String getType(T e) {

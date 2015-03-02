@@ -6,7 +6,14 @@
 
     <groupId>com.io-informatics.oss</groupId>
     <artifactId>jackson-jsonld</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <scm>
+        <connection>scm:git:git@github.com:io-informatics/jackson-jsonld.git</connection>
+        <developerConnection>scm:git:git@github.com:io-informatics/jackson-jsonld.git</developerConnection>
+        <url>https://github.com/io-informatics/jackson-jsonld</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <version.jackson.annotations>2.4.4</version.jackson.annotations>
@@ -70,16 +77,28 @@
     </build>
 
     <distributionManagement>
-        <repository>
-            <id>aws-release</id>
-            <name>AWS Release Repository</name>
-            <url>s3://maven.alexdeleon.name/release</url>
-        </repository>
         <snapshotRepository>
-            <id>aws-snapshot</id>
-            <name>AWS Snapshot Repository</name>
-            <url>s3://maven.alexdeleon.name/snapshot</url>
+            <id>sonatype</id>
+            <name>Sonatype Nexus snapshot repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
+    <ciManagement>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/io-informatics/jackson-jsonld</url>
+    </ciManagement>
+
+    <issueManagement>
+        <url>https://github.com/io-informatics/jackson-jsonld/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 </project>

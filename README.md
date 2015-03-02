@@ -1,4 +1,4 @@
-# jackson-jsonld
+# jackson-jsonld [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://www.opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/io-informatics/jackson-jsonld.svg)](https://travis-ci.org/io-informatics/jackson-jsonld)
 JSON-LD Module for Jackson
 
 ## Installation

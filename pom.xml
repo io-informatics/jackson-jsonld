@@ -7,6 +7,9 @@
     <groupId>com.io-informatics.oss</groupId>
     <artifactId>jackson-jsonld</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <name>jackson-jsonld</name>
+    <description>JSON-LD Module for Jackson</description>
+    <url>https://github.com/io-informatics/jackson-jsonld</url>
 
     <scm>
         <connection>scm:git:git@github.com:io-informatics/jackson-jsonld.git</connection>
@@ -14,6 +17,17 @@
         <url>https://github.com/io-informatics/jackson-jsonld</url>
         <tag>HEAD</tag>
     </scm>
+
+    <developers>
+        <developer>
+            <name>Alexander De Leon</name>
+            <email>adeleon@io-informatics.com</email>
+            <timezone>Europe/Madrid</timezone>
+            <roles>
+                <role>committer</role>
+            </roles>
+        </developer>
+    </developers>
 
     <properties>
         <version.jackson.annotations>2.4.4</version.jackson.annotations>

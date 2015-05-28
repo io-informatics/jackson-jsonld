@@ -15,9 +15,11 @@ If you use maven, just add the dependency to your pom.xml
 ## Use it
 The first think you need is to register the module in jackson. The module constructor takes a function that returns the jsonld context of your application.
 ```java
-    // we just provide an empty context object here, but you should use a method reference or a lambda to generate your context
-   objectMapper.registerModule(new JsonldModule(() -> objectMapper.createObjectNode()));
+    // this configure the JsonldModule with an empty default context.
+   objectMapper.registerModule(new JsonldModule());
 ```
+If you want to provide a default JSONLD context for your application check the other constructors of [JsonldModule](https://github.com/io-informatics/jackson-jsonld/blob/master/src/main/java/ioinformarics/oss/jackson/module/jsonld/JsonldModule.java#L25)
+
 
 Now we can have annotated java beans which can serialized using Jsonld. For instance:
 

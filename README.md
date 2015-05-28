@@ -7,6 +7,6 @@ If you use maven, just add the dependency to your pom.xml
 <dependency>
     <groupId>com.io-informatics.oss</groupId>
     <artifactId>jackson-jsonld</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.5</version>
 </dependency>
 ```

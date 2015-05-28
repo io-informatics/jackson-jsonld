@@ -13,15 +13,15 @@ If you use maven, just add the dependency to your pom.xml
 ```
 
 ## Use it
-The first think you need is to register the module in jackson. The module constructor takes a function that returns the jsonld context of your application.
+The first step is to register the module with jackson.
 ```java
     // this configure the JsonldModule with an empty default context.
    objectMapper.registerModule(new JsonldModule());
 ```
-If you want to provide a default JSONLD context for your application check the other constructors of [JsonldModule](https://github.com/io-informatics/jackson-jsonld/blob/master/src/main/java/ioinformarics/oss/jackson/module/jsonld/JsonldModule.java#L25)
+If you want to provide a default JSON-LD context for your application check the other constructors of [JsonldModule](https://github.com/io-informatics/jackson-jsonld/blob/master/src/main/java/ioinformarics/oss/jackson/module/jsonld/JsonldModule.java#L25)
 
 
-Now we can have annotated java beans which can serialized using Jsonld. For instance:
+Next, we can have annotated java beans which can be serialized using Jsonld. For instance:
 
 ```java
     @JsonldType("http://schema.org/Person")
@@ -37,7 +37,7 @@ Now we can have annotated java beans which can serialized using Jsonld. For inst
     }
 ```
 
-Instances of Person can we wrapped inside a JsonldResource or JsonldGraph/HydraCollections. To do this you can use the builders that the library provides:
+Instances of Person can we wrapped inside a JsonldResource or JsonldGraph/HydraCollection. To do this you can use the builders that the library provides:
 
 ```java
     Person alex = new Person();
@@ -48,7 +48,7 @@ Instances of Person can we wrapped inside a JsonldResource or JsonldGraph/HydraC
 
     objectMapper.writer().writeValue(System.out, JsonldResource.Builder.create().build(alex));
 ```
-The above will generate the following jsonld representation:
+The above will generate the following JSON-LD representation:
 
 ```json
     {

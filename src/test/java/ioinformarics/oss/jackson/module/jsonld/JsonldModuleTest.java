@@ -18,7 +18,7 @@ public class JsonldModuleTest {
     @Test
     public void testSerializeBean() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JsonldModule(() -> objectMapper.createObjectNode()));
+        objectMapper.registerModule(new JsonldModule());
 
         Person alex = new Person();
         alex.id = "mailto:me@alexdeleon.name";
@@ -26,7 +26,9 @@ public class JsonldModuleTest {
         alex.jobtitle = "Software Developer";
         alex.url = "http://alexdeleon.name";
 
-        objectMapper.writer().writeValue(System.out, JsonldResource.Builder.create().build(alex));
+        JsonldResourceBuilder builder = JsonldResource.Builder.create();
+        builder.context("http://json-ld.org/contexts/person.jsonld");
+        objectMapper.writer().writeValue(System.out, builder.build(alex));
 
     }
 

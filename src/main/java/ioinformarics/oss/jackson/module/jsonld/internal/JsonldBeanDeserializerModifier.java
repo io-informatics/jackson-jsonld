@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * @author Alexander De Leon <me@alexdeleon.name>
+ * @author Alexander De Leon
  */
 public class JsonldBeanDeserializerModifier extends BeanDeserializerModifier {
 

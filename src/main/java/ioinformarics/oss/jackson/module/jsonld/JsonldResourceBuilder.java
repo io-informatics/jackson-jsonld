@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * @author Alexander De Leon <me@alexdeleon.name>
+ * @author Alexander De Leon
  */
 public class JsonldResourceBuilder<T> {
 

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
 
 /**
- * @author Alexander De Leon <me@alexdeleon.name>
+ * @author Alexander De Leon
  */
 public class HydraCollection extends BeanJsonldResource {
 

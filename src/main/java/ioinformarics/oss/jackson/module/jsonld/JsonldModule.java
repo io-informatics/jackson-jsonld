@@ -8,7 +8,7 @@ import ioinformarics.oss.jackson.module.jsonld.internal.JsonldResourceSerializer
 import java.util.function.Supplier;
 
 /**
- * @author Alexander De Leon <me@alexdeleon.name>
+ * @author Alexander De Leon
  */
 public class JsonldModule extends SimpleModule {
 

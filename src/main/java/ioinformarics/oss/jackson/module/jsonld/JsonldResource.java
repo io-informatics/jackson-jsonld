@@ -1,7 +1,7 @@
 package ioinformarics.oss.jackson.module.jsonld;
 
 /**
- * @author Alexander De Leon <me@alexdeleon.name>
+ * @author Alexander De Leon
  */
 public interface JsonldResource {
     public interface Builder {

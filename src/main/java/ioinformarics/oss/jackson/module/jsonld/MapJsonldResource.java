@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Alexander De Leon <me@alexdeleon.name>
+ * @author Alexander De Leon
  */
 public class MapJsonldResource extends HashMap<Object, Object> implements JsonldResource {
     public MapJsonldResource(Map map) {

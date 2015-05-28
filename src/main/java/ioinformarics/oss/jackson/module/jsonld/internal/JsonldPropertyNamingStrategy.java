@@ -12,7 +12,7 @@ import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
 import java.util.Optional;
 
 /**
- * @author Alexander De Leon <me@alexdeleon.name>
+ * @author Alexander De Leon
  */
 public class JsonldPropertyNamingStrategy extends PropertyNamingStrategy {
 

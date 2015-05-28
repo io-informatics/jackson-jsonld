@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 import java.util.Map;
 
 /**
- * @author Alexander De Leon <me@alexdeleon.name>
+ * @author Alexander De Leon
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

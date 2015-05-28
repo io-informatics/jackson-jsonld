@@ -1,6 +1,5 @@
-# jackson-jsonld [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://www.opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/io-informatics/jackson-jsonld.svg)](https://travis-ci.org/io-informatics/jackson-jsonld)
+# jackson-jsonld [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://www.opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/io-informatics/jackson-jsonld.svg)](https://travis-ci.org/io-informatics/jackson-jsonld) [![Join the chat at https://gitter.im/io-informatics/jackson-jsonld](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/io-informatics/jackson-jsonld?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Join the chat at https://gitter.im/io-informatics/jackson-jsonld](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/io-informatics/jackson-jsonld?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 JSON-LD Module for Jackson
 
 ## Install it

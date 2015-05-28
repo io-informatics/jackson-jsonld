@@ -17,8 +17,8 @@ import java.util.function.Supplier;
 public class JsonldModule extends SimpleModule {
 
     /**
-     * Create a JsonldModule configured with a function which supplies the @context structure of this application.
-     * This is constructor is useful if you want to construct your context dynamically. If the context is static is better to use the other constructors of this class.
+     * Create a JsonldModule configured with a function which supplies the @context structure of your application.
+     * This constructor is useful if you want to construct your context dynamically. If the context is static is better to use the other constructors of this class.
      *
      * @param contextSupplier a function from ()->Object which supplies the default Jsonld context of your application.
      */

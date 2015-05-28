@@ -4,7 +4,7 @@
 
     <groupId>com.io-informatics.oss</groupId>
     <artifactId>jackson-jsonld</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>jackson-jsonld</name>
     <description>JSON-LD Module for Jackson</description>
     <url>https://github.com/io-informatics/jackson-jsonld</url>
@@ -12,7 +12,7 @@
     <scm>
         <connection>scm:git:git@github.com:io-informatics/jackson-jsonld.git</connection>
         <developerConnection>scm:git:git@github.com:io-informatics/jackson-jsonld.git</developerConnection>
-        <url>https://github.com/io-informatics/jackson-jsonld</url>
+        <url>scm:git:git@github.com:io-informatics/jackson-jsonld.git</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -78,7 +78,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <!-- <plugin>
+            <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.5</version>
@@ -88,7 +88,7 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
-            </plugin> -->
+            </plugin>
         </plugins>
     </build>
 

@@ -1,13 +1,12 @@
 package ioinformarics.oss.jackson.module.jsonld;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import ioinformarics.oss.jackson.modulejsonld.model.AbstractParent;
-import ioinformarics.oss.jackson.modulejsonld.model.Child;
+import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldId;
+import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
+import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldType;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -21,13 +20,32 @@ public class JsonldContextFactoryTest {
         assertTrue(result.isPresent());
         final Iterator<String> fields = result.get().fieldNames();
         int counter = 0;
-        while(fields.hasNext()) {
+        final Set<String> fieldNames = new HashSet<>(Arrays.asList("name", "description", "version"));
+        while (fields.hasNext()) {
             counter++;
             final String fieldName = fields.next();
-            final int childIndex = Arrays.binarySearch(Child.JSON_PROPERTY_FIELDS, fieldName);
-            final int parentIndex = Arrays.binarySearch(AbstractParent.JSON_PROPERTY_FIELDS, fieldName);
-            assertTrue(childIndex != -1 || parentIndex != -1);
+            assertTrue(fieldNames.contains(fieldName));
         }
-        assertEquals(Child.JSON_PROPERTY_FIELDS.length + AbstractParent.JSON_PROPERTY_FIELDS.length, counter);
+        assertEquals(fieldNames.size(), counter);
+    }
+
+    @JsonldType("http://example.com/schema#Parent")
+    public static class Parent {
+
+        @JsonldId
+        Integer id;
+
+        @JsonldProperty("http://www.w3.org/2000/01/rdf-schema#label")
+        String name;
+    }
+
+    @JsonldType("http://example.com/schema#Child")
+    public static class Child extends Parent {
+
+        @JsonldProperty("http://www.w3.org/2000/01/rdf-schema#comment")
+        String description;
+
+        @JsonldProperty("http://example.com/schema#version")
+        Long version;
     }
 }

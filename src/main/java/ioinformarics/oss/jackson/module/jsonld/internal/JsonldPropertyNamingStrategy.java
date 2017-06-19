@@ -7,7 +7,12 @@ import com.fasterxml.jackson.databind.introspect.AnnotatedField;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import com.fasterxml.jackson.databind.introspect.AnnotatedParameter;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
+
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
+import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldPropertyType;
 
 import java.util.Optional;
 

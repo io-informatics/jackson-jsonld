@@ -4,7 +4,7 @@
 
     <groupId>com.io-informatics.oss</groupId>
     <artifactId>jackson-jsonld</artifactId>
-    <version>0.0.6-SNAPSHOT</version>
+    <version>0.0.7-SNAPSHOT</version>
     <name>jackson-jsonld</name>
     <description>JSON-LD Module for Jackson</description>
     <url>https://github.com/io-informatics/jackson-jsonld</url>
@@ -23,6 +23,14 @@
             <timezone>Europe/Madrid</timezone>
             <roles>
                 <role>committer</role>
+            </roles>
+        </developer>
+		<developer>
+            <name>Charbel El Kaed</name>
+            <email>charbel.kaed@outlook.com</email>
+            <timezone>US/EST</timezone>
+            <roles>
+                <role>contributer</role>
             </roles>
         </developer>
     </developers>

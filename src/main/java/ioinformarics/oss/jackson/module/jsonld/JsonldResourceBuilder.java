@@ -2,6 +2,8 @@ package ioinformarics.oss.jackson.module.jsonld;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldType;
+import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldTypeFromJavaClass;
+import ioinformarics.oss.jackson.module.jsonld.internal.AnnotationConstants;
 
 import java.util.Map;
 import java.util.Optional;
@@ -63,8 +65,22 @@ public class JsonldResourceBuilder<T> {
     }
 
     static String dynamicTypeLookup(Class<?> objType){
-        JsonldType type = objType.getAnnotation(JsonldType.class);
-        return type == null? null : type.value();
+        return Optional.ofNullable(objType.getAnnotation(JsonldType.class))
+                .map(JsonldType::value)
+                .orElse(typeFromJavaClass(objType));
+    }
+
+    static String typeFromJavaClass(Class<?> objType) {
+        return Optional.ofNullable(objType.getAnnotation(JsonldTypeFromJavaClass.class))
+                .map((t) -> {
+                    String prefix = t.namespace();
+                    if(prefix.equals(AnnotationConstants.UNASSIGNED)) {
+                        prefix = t.namespacePrefix().equals(AnnotationConstants.UNASSIGNED) ? "" : t.namespacePrefix() + ":";
+                    }
+                    return prefix + objType.getSimpleName();
+
+                })
+                .orElse(null);
     }
 
 }

@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldLink;
+import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldNamespace;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -30,6 +32,7 @@ public class JsonldContextFactory {
 
     public static Optional<ObjectNode> fromAnnotations(Class<?> objType) {
         ObjectNode generatedContext = JsonNodeFactory.withExactBigDecimals(true).objectNode();
+        generateNamespaces(objType).forEach((name, uri) -> generatedContext.set(name, new TextNode(uri)));
         //TODO: This is bad...it does not consider other Jackson annotations. Need to use a AnnotationIntrospector?
         final Map<String, TextNode> fieldContexts = generateContextsForFields(objType);
         fieldContexts.forEach(generatedContext::set);
@@ -52,6 +55,7 @@ public class JsonldContextFactory {
         final Map<String, TextNode> contexts = new HashMap<>();
         Class<?> currentClass = objType;
         while (currentClass != null && !currentClass.equals(Object.class)) {
+            Optional<JsonldNamespace> namespace = Optional.ofNullable(currentClass.getAnnotation(JsonldNamespace.class));
             final Field[] fields = currentClass.getDeclaredFields();
             for (Field f : fields) {
                 final JsonldProperty jsonldProperty = f.getAnnotation(JsonldProperty.class);
@@ -59,10 +63,20 @@ public class JsonldContextFactory {
                 if (jsonldProperty != null && !contexts.containsKey(f.getName())) {
                     contexts.put(f.getName(), TextNode.valueOf(jsonldProperty.value()));
                 }
+                else if(jsonldProperty == null && namespace.map(JsonldNamespace::applyToProperties).orElse(false)) {
+                    contexts.put(f.getName(), TextNode.valueOf(namespace.get().name() + ":" + f.getName()));
+                }
             }
             currentClass = currentClass.getSuperclass();
         }
         return contexts;
+    }
+
+    private static Map<String, String> generateNamespaces(Class<?> objType) {
+        JsonldNamespace[] namespaceAnnotations = objType.getAnnotationsByType(JsonldNamespace.class);
+        Map<String, String> namespaces = new HashMap<>(namespaceAnnotations.length);
+        Arrays.asList(namespaceAnnotations).forEach((ns) -> namespaces.put(ns.name(), ns.uri()));
+        return namespaces;
     }
 
 

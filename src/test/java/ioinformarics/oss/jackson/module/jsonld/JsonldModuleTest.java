@@ -3,6 +3,7 @@ package ioinformarics.oss.jackson.module.jsonld;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldId;
+import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldNamespace;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
 import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldType;
 import org.junit.Test;
@@ -33,7 +34,8 @@ public class JsonldModuleTest {
     }
 
 
-    @JsonldType("http://schema.org/Person")
+    @JsonldNamespace(name = "s", uri = "http://schema.org/")
+    @JsonldType("s:Person")
     public class Person {
         @JsonldId
         public  String id;

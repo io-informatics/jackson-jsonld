@@ -1,5 +1,6 @@
 package ioinformarics.oss.jackson.module.jsonld.annotation;
 
+
 import java.lang.annotation.*;
 
 /**

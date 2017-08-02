@@ -1,10 +1,6 @@
 package ioinformarics.oss.jackson.module.jsonld;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.TextNode;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Optional;

@@ -52,12 +52,19 @@ public class JsonldContextFactory {
     }
 
     private static Map<String, JsonNode> generateContextsForFields(Class<?> objType) {
+        return generateContextsForFields(objType, new ArrayList<>());
+    }
+
+    private static Map<String, JsonNode> generateContextsForFields(Class<?> objType, List<Class<?>> ignoreTypes) {
         final Map<String, JsonNode> contexts = new HashMap<>();
         Class<?> currentClass = objType;
         Optional<JsonldNamespace> namespace = Optional.ofNullable(currentClass.getAnnotation(JsonldNamespace.class));
         while (currentClass != null && !currentClass.equals(Object.class)) {
             final Field[] fields = currentClass.getDeclaredFields();
             for (Field f : fields) {
+                if(f.isAnnotationPresent(JsonldId.class) || f.getName().equals("this$0")) {
+                    continue;
+                }
                 final JsonldProperty jsonldProperty = f.getAnnotation(JsonldProperty.class);
                 Optional<String> propertyId = Optional.empty();
                 // Most concrete field overrides any field with the same name defined higher up the hierarchy
@@ -87,7 +94,7 @@ public class JsonldContextFactory {
         return contexts;
     }
 
-    private static boolean isRelation(Field field) {
+    private static Class<?> relationType(Field field) {
         Class<?> type = field.getType();
         if(Collection.class.isAssignableFrom(type)) {
             ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
@@ -96,6 +103,11 @@ public class JsonldContextFactory {
         if(type.isArray()) {
             type = type.getComponentType();
         }
+        return type;
+    }
+
+    private static boolean isRelation(Field field) {
+        Class<?> type = relationType(field);
         return Stream.concat(Stream.of(type),
                 Stream.concat(ClassUtils.getAllSuperclasses(type).stream(), ClassUtils.getAllInterfaces(type).stream()))
                 .flatMap(currentClass -> Stream.concat(

@@ -27,9 +27,7 @@ public class JsonldModuleTest {
         alex.jobtitle = "Software Developer";
         alex.url = "http://alexdeleon.name";
 
-        JsonldResourceBuilder builder = JsonldResource.Builder.create();
-        builder.context("http://json-ld.org/contexts/person.jsonld");
-        objectMapper.writer().writeValue(System.out, builder.build(alex));
+        objectMapper.writer().writeValue(System.out, alex);
 
     }
 

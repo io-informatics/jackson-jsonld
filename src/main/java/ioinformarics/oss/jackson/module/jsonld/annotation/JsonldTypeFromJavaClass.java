@@ -10,6 +10,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Inherited
+@JsonldResource
 public @interface JsonldTypeFromJavaClass {
     String namespace() default AnnotationConstants.UNASSIGNED;
     String namespacePrefix() default AnnotationConstants.UNASSIGNED;

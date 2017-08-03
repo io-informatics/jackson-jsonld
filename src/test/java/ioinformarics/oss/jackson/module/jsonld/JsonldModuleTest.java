@@ -31,6 +31,23 @@ public class JsonldModuleTest {
 
     }
 
+    @Test
+    public void testSerializeGraph() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JsonldModule());
+
+        Person alex = new Person();
+        alex.id = "mailto:me@alexdeleon.name";
+        alex.name = "Alex De Leon";
+        alex.jobtitle = "Software Developer";
+        alex.url = "http://alexdeleon.name";
+
+        Object graph = JsonldGraph.Builder.create().id("http://example.graph").build(alex);
+
+        objectMapper.writer().writeValue(System.out, graph);
+
+    }
+
 
     @JsonldNamespace(name = "s", uri = "http://schema.org/")
     @JsonldType("s:Person")

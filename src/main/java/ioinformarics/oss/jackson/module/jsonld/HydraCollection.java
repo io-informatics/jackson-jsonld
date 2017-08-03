@@ -9,11 +9,11 @@ import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
  */
 public class HydraCollection extends BeanJsonldResource {
 
-    HydraCollection(Iterable<JsonldResource> graph, JsonNode context, String type, String id) {
+    HydraCollection(Iterable<?> graph, JsonNode context, String type, String id) {
         super(new CollectionContainer(graph), context, type, id);
     }
 
-    HydraCollection(Iterable<JsonldResource> graph,
+    HydraCollection(Iterable<?> graph,
                     JsonNode context,
                     String type,
                     String id,

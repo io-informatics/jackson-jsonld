@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldId;
-import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldLink;
-import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldNamespace;
-import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
+import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
+import ioinformarics.oss.jackson.module.jsonld.annotation.*;
+import ioinformarics.oss.jackson.module.jsonld.util.AnnotationsUtils;
+import ioinformarics.oss.jackson.module.jsonld.util.JsonUtils;
 import org.apache.commons.lang3.ClassUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -19,6 +19,19 @@ import java.util.stream.Stream;
  * @author Alexander De Leon
  */
 public class JsonldContextFactory {
+
+    public static ObjectNode fromPackage(String packageName) {
+        ObjectNode generatedContext = JsonNodeFactory.withExactBigDecimals(true).objectNode();
+        FastClasspathScanner scanner = new FastClasspathScanner(packageName);
+        scanner.matchAllStandardClasses((clazz) -> {
+            if(AnnotationsUtils.isAnnotationPresent(clazz, ioinformarics.oss.jackson.module.jsonld.annotation.JsonldResource.class)) {
+                Optional<ObjectNode> resourceContext = fromAnnotations(clazz);
+                resourceContext.ifPresent((context) -> JsonUtils.merge(generatedContext, context));
+            }
+        });
+        scanner.scan();
+        return (ObjectNode) JsonNodeFactory.withExactBigDecimals(true).objectNode().set("@context", generatedContext);
+    }
 
     public static Optional<ObjectNode> fromAnnotations(Object instance) {
         return fromAnnotations(instance.getClass());

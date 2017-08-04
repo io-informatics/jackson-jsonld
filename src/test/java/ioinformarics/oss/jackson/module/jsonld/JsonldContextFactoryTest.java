@@ -29,7 +29,7 @@ public class JsonldContextFactoryTest {
     }
 
     @Test
-    public void testContextForPackage() {
+    public void testContextFromPackage() {
         ObjectNode context = JsonldContextFactory.fromPackage("ioinformarics.oss.jackson.module.jsonld.testobjects");
         System.out.println("Context: "+context);
         ObjectNode innerContext = (ObjectNode) context.get("@context");

@@ -9,8 +9,10 @@ import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import ioinformarics.oss.jackson.module.jsonld.annotation.*;
 import ioinformarics.oss.jackson.module.jsonld.util.AnnotationsUtils;
 import ioinformarics.oss.jackson.module.jsonld.util.JsonUtils;
+import ioinformarics.oss.jackson.module.jsonld.util.JsonldResourceUtils;
 import org.apache.commons.lang3.ClassUtils;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
 import java.util.stream.Stream;
@@ -24,6 +26,10 @@ public class JsonldContextFactory {
         ObjectNode generatedContext = JsonNodeFactory.withExactBigDecimals(true).objectNode();
         FastClasspathScanner scanner = new FastClasspathScanner(packageName);
         scanner.matchAllStandardClasses((clazz) -> {
+            if(!Modifier.isAbstract(clazz.getModifiers()) && AnnotationsUtils.isAnnotationPresent(clazz, JsonldTypeFromJavaClass.class)) {
+                Optional<String> type = JsonldResourceUtils.dynamicTypeLookup(clazz);
+                type.ifPresent(t ->generatedContext.set(clazz.getSimpleName(), TextNode.valueOf(t)));
+            }
             if(AnnotationsUtils.isAnnotationPresent(clazz, ioinformarics.oss.jackson.module.jsonld.annotation.JsonldResource.class)) {
                 Optional<ObjectNode> resourceContext = fromAnnotations(clazz);
                 resourceContext.ifPresent((context) -> JsonUtils.merge(generatedContext, context));

@@ -1,12 +1,10 @@
 package ioinformarics.oss.jackson.module.jsonld;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -50,9 +48,12 @@ public class JsonldGraphBuilder<T> {
         return this;
     }
 
+    public JsonldResource build(T ... elements) {
+        return build(Arrays.asList(elements));
+    }
+
     public JsonldResource build(Iterable<T> elements) {
-        Optional<JsonNode> generatedContext = JsonldContextFactory.multiContext(Optional.ofNullable(context), JsonldContextFactory.fromAnnotations(elements));
-        return new JsonldGraph(buildElements(elements), generatedContext.orElse(null), graphType, graphId);
+        return new JsonldGraph(elements, Optional.ofNullable(context).map(c -> TextNode.valueOf(c)).orElse(null), graphType, graphId);
 
     }
 
@@ -60,17 +61,6 @@ public class JsonldGraphBuilder<T> {
         return typeSupplier.apply(e);
     }
 
-    protected Iterable<JsonldResource> buildElements(Iterable<T> elements) {
-        ArrayList<JsonldResource> list = new ArrayList<>();
-        elements.forEach(e -> {
-            JsonldResourceBuilder builder = JsonldResource.Builder.create();
-            builder.type(resourceBuilder.getType(e));
-            builder.id(resourceBuilder.getId(e));
-            builder.context(null);
-            list.add(builder.build(e));
-        });
-        return list;
-    }
 
 
 }

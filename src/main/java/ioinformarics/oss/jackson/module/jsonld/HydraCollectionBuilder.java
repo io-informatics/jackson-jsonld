@@ -59,7 +59,7 @@ public class HydraCollectionBuilder<T> extends JsonldGraphBuilder<T> {
     }
 
     public JsonldResource build(Iterable<T> elements) {
-        return new HydraCollection(buildElements(elements), buildContext(elements).orElse(null),
+        return new HydraCollection(elements, buildContext(elements).orElse(null),
                 isPaged? "hydra:PagedCollection": "hydra:Collection", graphId, totalItems, itemsPerPage, firstPage, nextPage, previousPage, lastPage);
     }
 

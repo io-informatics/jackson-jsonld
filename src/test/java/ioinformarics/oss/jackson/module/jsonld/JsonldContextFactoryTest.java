@@ -1,15 +1,14 @@
 package ioinformarics.oss.jackson.module.jsonld;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldId;
-import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldProperty;
-import ioinformarics.oss.jackson.module.jsonld.annotation.JsonldType;
+import com.fasterxml.jackson.databind.node.TextNode;
+import ioinformarics.oss.jackson.module.jsonld.testobjects.Child;
+import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class JsonldContextFactoryTest {
 
@@ -29,23 +28,16 @@ public class JsonldContextFactoryTest {
         assertEquals(fieldNames.size(), counter);
     }
 
-    @JsonldType("http://example.com/schema#Parent")
-    public static class Parent {
-
-        @JsonldId
-        Integer id;
-
-        @JsonldProperty("http://www.w3.org/2000/01/rdf-schema#label")
-        String name;
+    @Test
+    public void testContextFromPackage() {
+        ObjectNode context = JsonldContextFactory.fromPackage("ioinformarics.oss.jackson.module.jsonld.testobjects");
+        System.out.println("Context: "+context);
+        ObjectNode innerContext = (ObjectNode) context.get("@context");
+        assertNotNull(innerContext);
+        // from: ioinformarics.oss.jackson.module.jsonld.testobjects.Parent
+        assertThat(innerContext.get("name"), is(TextNode.valueOf("http://www.w3.org/2000/01/rdf-schema#label")));
+        // from: ioinformarics.oss.jackson.module.jsonld.testobjects.internal.TestObject
+        assertThat(innerContext.get("url"), is(TextNode.valueOf("http://schema.org/url")));
     }
 
-    @JsonldType("http://example.com/schema#Child")
-    public static class Child extends Parent {
-
-        @JsonldProperty("http://www.w3.org/2000/01/rdf-schema#comment")
-        String description;
-
-        @JsonldProperty("http://example.com/schema#version")
-        Long version;
-    }
 }

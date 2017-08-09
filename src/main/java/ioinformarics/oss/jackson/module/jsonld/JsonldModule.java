@@ -20,7 +20,7 @@ public class JsonldModule extends SimpleModule {
      * Create a JsonldModule configured with a function which supplies the @context structure of your application.
      * This constructor is useful if you want to construct your context dynamically. If the context is static is better to use the other constructors of this class.
      *
-     * @param contextSupplier a function from ()->Object which supplies the default Jsonld context of your application.
+     * @param contextSupplier a function from () to Object which supplies the default Jsonld context of your application.
      */
     public JsonldModule(Supplier<Object> contextSupplier){
         setNamingStrategy(new JsonldPropertyNamingStrategy());

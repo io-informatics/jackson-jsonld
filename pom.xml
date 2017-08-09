@@ -4,7 +4,7 @@
 
     <groupId>com.io-informatics.oss</groupId>
     <artifactId>jackson-jsonld</artifactId>
-    <version>0.0.6-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>jackson-jsonld</name>
     <description>JSON-LD Module for Jackson</description>
     <url>https://github.com/io-informatics/jackson-jsonld</url>
@@ -55,14 +55,25 @@
             <version>${version.jsonld.java}</version>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.lukehutch</groupId>
+            <artifactId>fast-classpath-scanner</artifactId>
+            <version>1.99.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-junit</artifactId>
+            <version>2.0.0.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

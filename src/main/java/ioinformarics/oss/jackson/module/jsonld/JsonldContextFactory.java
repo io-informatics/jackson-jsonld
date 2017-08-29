@@ -14,6 +14,7 @@ import org.apache.commons.lang3.ClassUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -117,7 +118,13 @@ public class JsonldContextFactory {
         Class<?> type = field.getType();
         if(Collection.class.isAssignableFrom(type)) {
             ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
-            type = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+            Type t = parameterizedType.getActualTypeArguments()[0];
+            if(Class.class.isAssignableFrom(t.getClass())) {
+                type = (Class<?>) t;
+            }
+            else if(ParameterizedType.class.isAssignableFrom(t.getClass())) {
+                type = (Class<?>)((ParameterizedType) t).getRawType();
+            }
         }
         if(type.isArray()) {
             type = type.getComponentType();

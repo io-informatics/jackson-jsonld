@@ -4,7 +4,7 @@
 
     <groupId>com.io-informatics.oss</groupId>
     <artifactId>jackson-jsonld</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.1</version>
     <name>jackson-jsonld</name>
     <description>JSON-LD Module for Jackson</description>
     <url>https://github.com/io-informatics/jackson-jsonld</url>
@@ -13,7 +13,7 @@
         <connection>scm:git:git@github.com:io-informatics/jackson-jsonld.git</connection>
         <developerConnection>scm:git:git@github.com:io-informatics/jackson-jsonld.git</developerConnection>
         <url>scm:git:git@github.com:io-informatics/jackson-jsonld.git</url>
-        <tag>HEAD</tag>
+        <tag>v0.1.1</tag>
     </scm>
 
     <developers>

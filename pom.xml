@@ -29,7 +29,7 @@
 
     <properties>
         <version.jackson.annotations>2.4.4</version.jackson.annotations>
-        <version.jackson.core>2.4.4</version.jackson.core>
+        <version.jackson.core>2.9.10.8</version.jackson.core>
         <version.jsonld.java>0.5.1</version.jsonld.java>
     </properties>
 
